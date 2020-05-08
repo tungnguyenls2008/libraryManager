@@ -1,16 +1,12 @@
+
 <!DOCTYPE html>
 <?php
 
 session_start();
 require '../conn.php';
-if (!isset($_SESSION['user'])) {
+if(!ISSET($_SESSION['user'])){
     header('location:index.php');
 }
-
-$sql = "SELECT * FROM `member` ";
-$query = $conn->prepare($sql);
-$query->execute();
-$results = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <html lang="en">
@@ -54,8 +50,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
         <a class="navbar-brand" href="../home.php">AWESOME LIBRARY</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -70,7 +65,6 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <li class="nav-item">
                     <a class="nav-link" href="../books/display.php">Books</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link btn btn-danger text-white" type="button" href="../logout.php"
                        data-toggle="modal" data-target="#myModal">LOGOUT</a>
@@ -97,8 +91,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                       aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                             </div>
 
 
@@ -107,15 +100,14 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
                                 </div>
-                                <input id="Password" type="password" class="form-control" placeholder="Password"
-                                       aria-label="Password" aria-describedby="basic-addon2">
+                                <input id="Password" type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
                             </div>
                         </form>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        <button type="submit" class="btn btn-primary" >Sign In</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
@@ -132,7 +124,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     <h3 class="text-primary">Registered Users</h3>
     <hr style="border-top:1px dotted #ccc;"/>
     <div class="col-md-2"></div>
-    <div>
+    <div >
         <h3>Welcome!</h3>
         <?php
         $id = $_SESSION['user']['mem_id'];
@@ -140,63 +132,54 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $sql2->execute();
         $fetch = $sql2->fetch();
         ?>
-        <div style="text-align: center;">
-            <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
+        <div style="text-align: center;"><h4><?php echo 'hi there '.$fetch['firstname']." ". $fetch['lastname']?></h4></div>
         <h5>This is a list of registered user, nothing important, really.</h5>
-        <br/>
-        <div style="text-align: left;">
-            <form method="post">
-                <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
+        <br />
+        <div style="text-align: left;"><form method="post">
+                <input type="text" name="keyword" placeholder="search" value="<?php echo (isset($_POST['keyword']))? $_POST['keyword']: ''  ?>">
+                <input type="submit" name="search" value="SEARCH">
+                <?php if(isset($_POST['search'])){
+                    $keyword = $_REQUEST['keyword'];
+                    $sql = "SELECT * FROM `member` WHERE `firstname` LIKE '%$keyword%' OR `lastname` LIKE '%$keyword%' OR `username` LIKE '%$keyword%' ";
+                    $query = $conn->prepare( $sql );
+                    $query->execute();
+                    $results = $query->fetchAll( PDO::FETCH_ASSOC );
+
+                } ?>
                 <table class="gridtable" border="1px">
                     <tr>
                         <th>No.</th>
-                        <th>ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
                         <th>Username</th>
                         <th>Role</th>
-                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
 
                     <?php foreach ($results as $key => $item): ?>
                         <tr>
-                            <td><?php echo ++$key ?></td>
-                            <td><?php echo $item['mem_id'] ?></td>
-                            <td><?php echo $item['username'] ?></td>
-                            <td><?php if ($item['role'] == 1) {
-                                    echo 'Admin';
-                                } else {
-                                    echo 'Member';
-                                } ?></td>
-                            <td><?php if ($item['status'] == 0) {
-                                    echo '<p style="color: #00A000">Active</p>';
-                                } else {
-                                    echo '<p style="color: #9A0000">Blocked</p>';
-                                }  ?></td>
+                            <td><?php echo ++$key?></td>
+                            <td><?php echo $item['firstname']?></td>
+                            <td><?php echo $item['lastname']?></td>
+                            <td><?php echo $item['username']?></td>
+                            <td><?php if($item['role'] == 1){echo 'Admin';}
+                                else
+                                {echo 'Member';}?>
                             <td>
-                                <?php if ($_SESSION['user']['role'] == 1):{ ?>
-                                    <a class="btn btn-danger"
-                                       href="delete.php?id=<?php echo $item['mem_id'] ?>">Delete</a><br><br>
-                                    <?php if ($item['status'] == 0): ?>
-                                        <a class="btn btn-danger" href="block.php?id=<?php echo $item['mem_id'] ?>">Block</a>
-                                        <br><br>
-                                    <?php elseif ($item['status'] == 1): ?>
-                                        <a class="btn btn-secondary"
-                                           href="unblock.php?id=<?php echo $item['mem_id'] ?>">Unblock</a><br><br>
-                                    <?php endif; ?>
-                                    <a class="btn btn-primary" href="makeAdmin.php?id=<?php echo $item['mem_id'] ?>">Make
-                                        Admin</a>
-                                <?php } endif; ?>
+                                <?php if ($_SESSION['user']['role'] == 1):?>
+                                    <a class="btn btn-danger" href="delete.php?id=<?php echo $item['mem_id']?>">Delete</a><br>
+                                    <a class="btn btn-primary" href="makeAdmin.php?id=<?php echo $item['mem_id']?>">Make Admin</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                 </table>
-            </form>
-        </div>
-        <?php if ($_SESSION['user']['role'] == 1): ?>
-            <a class="btn btn-primary" href="addRandomUser.php">Add random user</a><br> <?php endif; ?>
-        <a class="btn btn-danger" href="../logout.php">Logout</a>
-        <a class="btn btn-primary" href="../home.php">Back to home</a>
+            </form></div>
+        <?php if ($_SESSION['user']['role'] == 1):?>
+            <a class="btn btn-primary" href = "addRandomUser.php">Add random user</a><br> <?php endif; ?>
+        <a class="btn btn-danger" href = "../logout.php">Logout</a>
+        <a class="btn btn-primary" href = "../home.php">Back to home</a>
     </div>
 </div>
 </body>
-</html>
+</html><?php

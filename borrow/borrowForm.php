@@ -3,11 +3,11 @@
 
 session_start();
 require '../conn.php';
+if ($_SESSION['user']['role'] == 1): {
 if (!isset($_SESSION['user'])) {
     header('location:index.php');
 }
-
-$sql = "SELECT * FROM `member` ";
+$sql = "SELECT * FROM `books` ";
 $query = $conn->prepare($sql);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -24,21 +24,35 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <style type="text/css">
     table.gridtable {
-        font-family: verdana,arial,sans-serif;
-        font-size:11px;
-        color:#333333;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+
+        font-family: verdana, arial, sans-serif;
+        font-size: 11px;
+        color: #333333;
         border-width: 1px;
         border-color: #666666;
         border-collapse: collapse;
     }
+
     table.gridtable th {
+        width: 1px;
+        white-space: nowrap;
+        margin-left: auto;
+        margin-right: auto;
         border-width: 1px;
         padding: 8px;
         border-style: solid;
         border-color: #666666;
         background-color: #dedede;
     }
+
     table.gridtable td {
+        width: 1px;
+        white-space: nowrap;
+        margin-left: auto;
+        margin-right: auto;
         border-width: 1px;
         padding: 8px;
         border-style: solid;
@@ -65,16 +79,12 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                     <a class="nav-link" href="../home.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="display.php">Users</a>
+                    <a class="nav-link" href="../users/display.php">Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../books/display.php">Books</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link btn btn-danger text-white" type="button" href="../logout.php"
-                       data-toggle="modal" data-target="#myModal">LOGOUT</a>
-                </li>
             </ul>
         </div>
 
@@ -129,7 +139,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="col-md-3"></div>
 <div class="col-md-6 well">
-    <h3 class="text-primary">Registered Users</h3>
+    <h3 class="text-primary">MAKE BORROW ORDER</h3>
     <hr style="border-top:1px dotted #ccc;"/>
     <div class="col-md-2"></div>
     <div>
@@ -140,63 +150,106 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $sql2->execute();
         $fetch = $sql2->fetch();
         ?>
-        <div style="text-align: center;">
+        <div style="width: auto;
+        margin-left: auto;
+        margin-right: auto;">
             <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
-        <h5>This is a list of registered user, nothing important, really.</h5>
+        <h5>This form is for making book borrow orders, proceed with caution.</h5>
         <br/>
-        <div style="text-align: left;">
+        <div style="width: auto;
+        margin-left: auto;
+        margin-right: auto;">
             <form method="post">
-                <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
-                <table class="gridtable" border="1px">
-                    <tr>
-                        <th>No.</th>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
+                <table border="1px"
+                ">
+                <tr>
+                    <td>
+                        <input type="number" name="user-id" placeholder="Search for ID"
+                               value="<?php echo (isset($_POST['user-id'])) ? $_POST['user-id'] : '' ?>">
+                        <input type="submit" name="search" value="SEARCH ID">
+                        <?php if (!empty($_REQUEST['user-id'])): {
+                            $keyword = $_REQUEST['user-id'];
+                            $sql = "SELECT * FROM `member` WHERE `mem_id` LIKE '%$keyword%' ";
+                            $query = $conn->prepare($sql);
+                            $query->execute();
+                            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+                        } ?>
+                            <table class="gridtable" border="1px">
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Status</th>
 
-                    <?php foreach ($results as $key => $item): ?>
-                        <tr>
-                            <td><?php echo ++$key ?></td>
-                            <td><?php echo $item['mem_id'] ?></td>
-                            <td><?php echo $item['username'] ?></td>
-                            <td><?php if ($item['role'] == 1) {
-                                    echo 'Admin';
-                                } else {
-                                    echo 'Member';
-                                } ?></td>
-                            <td><?php if ($item['status'] == 0) {
-                                    echo '<p style="color: #00A000">Active</p>';
-                                } else {
-                                    echo '<p style="color: #9A0000">Blocked</p>';
-                                }  ?></td>
-                            <td>
-                                <?php if ($_SESSION['user']['role'] == 1):{ ?>
-                                    <a class="btn btn-danger"
-                                       href="delete.php?id=<?php echo $item['mem_id'] ?>">Delete</a><br><br>
-                                    <?php if ($item['status'] == 0): ?>
-                                        <a class="btn btn-danger" href="block.php?id=<?php echo $item['mem_id'] ?>">Block</a>
-                                        <br><br>
-                                    <?php elseif ($item['status'] == 1): ?>
-                                        <a class="btn btn-secondary"
-                                           href="unblock.php?id=<?php echo $item['mem_id'] ?>">Unblock</a><br><br>
-                                    <?php endif; ?>
-                                    <a class="btn btn-primary" href="makeAdmin.php?id=<?php echo $item['mem_id'] ?>">Make
-                                        Admin</a>
-                                <?php } endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                            </tr>
+
+                            <?php foreach ($results as $key => $item): ?>
+                                <tr>
+                                    <td><?php echo $item['mem_id'] ?></td>
+                                    <td><?php echo $item['username'] ?></td>
+                                    <td><?php if ($item['role'] == 1) {
+                                            echo 'Admin';
+                                        } else {
+                                            echo 'Member';
+                                        } ?>
+                                    <td><?php if ($item['status'] == 0): ?>
+                                            <p style="color: #1c7430">Active</p>
+                                        <?php elseif ($item['status'] == 1): ?>
+                                            <p style="color: #9A0000">Blocked</p>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+
+                            </tr></table><?php endif; ?>
+                    </td>
+                    <td>
+                        <input type="text" name="keyword" placeholder="Search for books"
+                               value="<?php echo (isset($_POST['keyword'])) ? $_POST['keyword'] : '' ?>">
+                        <input type="submit" name="search" value="SEARCH BOOK">
+                        <?php if (!empty($_REQUEST['keyword'])): {
+                            $keyword = $_POST['keyword'];
+                            $sql = "SELECT * FROM `books` WHERE `name` LIKE '%$keyword%'";
+                            $query = $conn->prepare($sql);
+                            $query->execute();
+                            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                        } ?>
+                            <table class="gridtable" border="1px">
+                            <tr>
+                                <th>Check</th>
+                                <th>Name</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                            <?php foreach ($results as $key => $item): ?>
+                                <tr>
+                                    <td><input type="checkbox" name="borrow-this[]" value="<?php echo $item['id'] ?>">
+                                    </td>
+                                    <td><?php echo $item['name'] ?></td>
+                                    <td><?php if ($item['status'] == 1) {
+                                            echo '<p style="color: #00A000"> Available</p>';
+                                        } else {
+                                            echo '<p style="color: #9A0000">Unavailable</p>';
+                                        } ?></td>
+
+                                </tr>
+                            <?php endforeach; ?>
+
+
+                            </table><?php endif; ?>
+                    </td>
+                </tr>
                 </table>
             </form>
         </div>
-        <?php if ($_SESSION['user']['role'] == 1): ?>
-            <a class="btn btn-primary" href="addRandomUser.php">Add random user</a><br> <?php endif; ?>
+
+        <a class="btn btn-primary" href="borrow.php">MAKE BORROW ORDER</a>
         <a class="btn btn-danger" href="../logout.php">Logout</a>
         <a class="btn btn-primary" href="../home.php">Back to home</a>
     </div>
 </div>
 </body>
-</html>
+</html><?php } endif; ?>
+<?php

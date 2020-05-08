@@ -1,8 +1,13 @@
 <?php
+session_start();
 include '../conn.php';
-$sql='SELECT * FROM books';
+$bookID=$_REQUEST['id'];
+$sql="SELECT * FROM books WHERE `id`='$bookID' ";
 $stmt=$conn->query($sql);
 $book=$stmt->fetch();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -11,15 +16,98 @@ $book=$stmt->fetch();
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
     <title>UPDATE YOUR BOOK</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="../home.php">AWESOME LIBRARY</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto topnav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../home.php">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../users/display.php">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../books/display.php">Books</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" type="button" href="index.php" data-toggle="modal" data-target="#myModal">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" type="button" href="registration.php" data-toggle="modal" data-target="#myModal">Register</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Customer Sign In</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form>
+                            <label class="sr-only" for="usrname">Username</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+
+
+                            <label class="sr-only" for="Password">Name</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
+                                </div>
+                                <input id="Password" type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" >Sign In</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </nav>
+</div>
+
 <div class="col-md-3"></div>
 <div class="col-md-6 well">
     <h3 class="text-primary">UPDATE YOUR BOOK</h3>
     <hr style="border-top:1px dotted #ccc;"/>
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <form action="update.php?id=<?php echo $book['id'] ?>" method="POST">
+        <form action="update.php?id=<?php echo $bookID ?>" method="POST">
             <h4 class="text-success">Please fill in book's information</h4>
             <hr style="border-top:1px groovy #000;">
             <div class="form-group">

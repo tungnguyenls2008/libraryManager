@@ -8,7 +8,7 @@
 				$username = $_POST['username'];
 				$password = $_POST['password'];
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$sql = "INSERT INTO `member` (`mem_id`,`role`, `firstname`, `lastname`, `username`, `password`) VALUES (NULL,0 ,'$firstname', '$lastname', '$username', '$password')";
+				$sql = "INSERT INTO `member` (`mem_id`,`role`,`status`, `firstname`, `lastname`, `username`, `password`) VALUES (NULL,0 ,0,'$firstname', '$lastname', '$username', '$password')";
 				$conn->exec($sql);
 			}catch(PDOException $e){
 				echo $e->getMessage();
