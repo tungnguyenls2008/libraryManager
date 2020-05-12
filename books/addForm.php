@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
     <title>ADD NEW BOOK</title>
+    <link href="../css/style.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -15,8 +16,9 @@
 
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <a class="navbar-brand" href="../home.php">AWESOME LIBRARY</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <img style="width: 200px" src="../img/logo.png" href="home.php">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -59,7 +61,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                       aria-describedby="basic-addon1">
                             </div>
 
 
@@ -68,14 +71,15 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
                                 </div>
-                                <input id="Password" type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                                <input id="Password" type="password" class="form-control" placeholder="Password"
+                                       aria-label="Password" aria-describedby="basic-addon2">
                             </div>
                         </form>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" >Sign In</button>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
@@ -87,33 +91,36 @@
     </nav>
 </div>
 
-<div class="col-md-3"></div>
-<div class="col-md-6 well">
-    <h3 class="text-primary">ADD NEW BOOK</h3>
-    <hr style="border-top:1px dotted #ccc;"/>
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <form action="add.php" method="POST">
-            <h4 class="text-success">Please fill in new book's information</h4>
-            <hr style="border-top:1px groovy #000;">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" name="name"/>
-            </div>
-            <div class="form-group">
-                <label>Status</label>
-                <select name="status" class="form-control" id="exampleFormControlSelect1">
-                    <option value="1" selected>Available</option>
-                    <option value="0">Unavailable</option>
-                </select>
-            </div>
-            <br/>
-            <div class="form-group">
-                <button class="btn btn-primary form-control" name="add">ADD YOUR BOOK</button>
-            </div>
-            <a href="display.php">Display books list</a>
-        </form>
+<div class="container" style="text-align: center">
+    <div class="col-md-12 well" style="display: inline-block">
+        <h3 class="text-primary">ADD NEW BOOK</h3>
+        <hr style="border-top:1px dotted #ccc;"/>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="add.php" method="POST">
+                <h4 class="text-success">Please fill in new book's information</h4>
+                <hr style="border-top:1px groovy #000;">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name"/>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-control" id="exampleFormControlSelect1">
+                        <option value="1" selected>Available</option>
+                        <option value="0">Unavailable</option>
+                    </select>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <button class="btn btn-primary form-control" name="add">ADD YOUR BOOK</button>
+                </div>
+                <a href="display.php">Display books list</a>
+            </form>
+        </div>
     </div>
 </div>
+<canvas id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"></canvas>
+<script src="../js/background.js"></script>
 </body>
 </html>

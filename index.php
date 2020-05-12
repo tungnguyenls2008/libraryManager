@@ -4,6 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
         <title>INDEX</title>
+        <link href="css/style.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -15,7 +16,7 @@
 
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-            <a class="navbar-brand" href="home.php">AWESOME LIBRARY</a>
+            <img style="width: 200px" src="img/logo.png" href="home.php">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -88,10 +89,9 @@
 
         </nav>
     </div>
-
-    <div class="col-md-3"></div>
-	<div class="col-md-6 well">
-		<h3 class="text-primary">PDO Login and Registration</h3>
+<div class="container" style="text-align: center">
+	<div class="col-md-12 well" style="display: inline-block">
+		<h3 class="text-primary">Welcome to Awesome Library, please login or register</h3>
 		<hr style="border-top:1px dotted #ccc;"/>
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -114,5 +114,8 @@
 			</form>
 		</div>
 	</div>
+</div>
+    <canvas id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"></canvas>
+    <script src="js/background.js"></script>
 </body>
 </html>

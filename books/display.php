@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 <?php
 
 session_start();
 require '../conn.php';
-if(!ISSET($_SESSION['book'])){
+if (!isset($_SESSION['book'])) {
     header('location:../index.php');
 }
 
-$sql="SELECT * FROM `books` ";
-$query = $conn->prepare( $sql );
+$sql = "SELECT * FROM `books` ";
+$query = $conn->prepare($sql);
 $query->execute();
-$results = $query->fetchAll( PDO::FETCH_ASSOC );
+$results = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <html lang="en">
@@ -19,19 +18,21 @@ $results = $query->fetchAll( PDO::FETCH_ASSOC );
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
     <title>REGISTERED BOOKS</title>
+    <link href="../css/style.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <style type="text/css">
     table.gridtable {
-        font-family: verdana,arial,sans-serif;
-        font-size:11px;
-        color:#333333;
+        font-family: verdana, arial, sans-serif;
+        font-size: 11px;
+        color: #333333;
         border-width: 1px;
         border-color: #666666;
         border-collapse: collapse;
     }
+
     table.gridtable th {
         border-width: 1px;
         padding: 8px;
@@ -39,6 +40,7 @@ $results = $query->fetchAll( PDO::FETCH_ASSOC );
         border-color: #666666;
         background-color: #dedede;
     }
+
     table.gridtable td {
         border-width: 1px;
         padding: 8px;
@@ -54,8 +56,9 @@ $results = $query->fetchAll( PDO::FETCH_ASSOC );
 
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <a class="navbar-brand" href="../home.php">AWESOME LIBRARY</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <img style="width: 200px" src="../img/logo.png" href="home.php">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -98,7 +101,8 @@ $results = $query->fetchAll( PDO::FETCH_ASSOC );
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                       aria-describedby="basic-addon1">
                             </div>
 
 
@@ -107,14 +111,15 @@ $results = $query->fetchAll( PDO::FETCH_ASSOC );
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
                                 </div>
-                                <input id="Password" type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                                <input id="Password" type="password" class="form-control" placeholder="Password"
+                                       aria-label="Password" aria-describedby="basic-addon2">
                             </div>
                         </form>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" >Sign In</button>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
@@ -126,62 +131,73 @@ $results = $query->fetchAll( PDO::FETCH_ASSOC );
     </nav>
 </div>
 
-<div class="col-md-3"></div>
-<div class="col-md-6 well">
-    <h3 class="text-primary">Registered Books</h3>
-    <hr style="border-top:1px dotted #ccc;"/>
-    <div class="col-md-2"></div>
-    <div>
-        <h3>Welcome!</h3>
-        <?php
-        $id = $_SESSION['user']['mem_id'];
-        $sql2 = $conn->prepare("SELECT * FROM `member` WHERE `mem_id`='$id'");
-        $sql2->execute();
-        $fetch = $sql2->fetch();
-        ?>
-        <div style="text-align: center;"><h4><?php echo 'hi there '.$fetch['firstname']." ". $fetch['lastname']?></h4></div>
-        <h5>This is a list of registered books, nothing important, really.</h5>
-        <br />
-        <div style="text-align: left;"><form method="post">
-                <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
-                <?php if ($_SESSION['user']['role'] == 1):?>
-                <a class="btn btn-primary" href="addForm.php">ADD NEW BOOK</a><?php endif; ?>
-                <table class="gridtable" border="1px">
-                    <tr>
-                        <th>No.</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-
-                    <?php foreach ($results as $key => $item): ?>
+<div class="container" style="text-align: center">
+    <div class="col-md-12 well" style="display: inline-block">
+        <h3 class="text-primary">Registered Books</h3>
+        <hr style="border-top:1px dotted #ccc;"/>
+        <div class="col-md-2"></div>
+        <div>
+            <h3>Welcome!</h3>
+            <?php
+            $id = $_SESSION['user']['mem_id'];
+            $sql2 = $conn->prepare("SELECT * FROM `member` WHERE `mem_id`='$id'");
+            $sql2->execute();
+            $fetch = $sql2->fetch();
+            ?>
+            <div style="text-align: center;">
+                <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
+            <h5>This is a list of registered books, nothing important, really.</h5>
+            <br/>
+            <div style="text-align: left;">
+                <form method="post">
+                    <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
+                    <?php if ($_SESSION['user']['role'] == 1): ?>
+                        <a class="btn btn-primary" href="addForm.php">ADD NEW BOOK</a><?php endif; ?>
+                    <table class="gridtable" border="1px">
                         <tr>
-                            <td><?php echo ++$key?></td>
-                            <td><?php echo $item['id']?></td>
-                            <td><?php echo $item['name']?></td>
-                            <td><?php if($item['status'] == 1){echo '<p style="color: #00A000"> Available</p>';}
-                                else
-                                {echo '<p style="color: #9A0000">Unavailable</p>';}?>
-                            <td>
-                                <?php if ($_SESSION['user']['role'] == 1):?>
-                                    <a class="btn btn-danger" href="delete.php?id=<?php echo $item['id']?>">Delete</a><br>
-                                    <a class="btn btn-primary" href="updateForm.php?id=<?php echo $item['id']?>">Update</a>
-                                <?php endif; ?>
-                                <?php if ($_SESSION['user']['role']==0): ?>
-                                <a class="btn btn-primary" href="../borrow/borrowForm.php?id=<?php echo $item['id']?>">Borrow this book</a><br>
-                                <?php endif; ?>
-
-                            </td>
+                            <th>No.</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php endforeach;?>
-                </table>
-            </form></div>
-        <?php if ($_SESSION['user']['role'] == 1):?>
-        <a class="btn btn-primary" href = "addRandomBook.php">Add random book</a><br><?php endif; ?>
-        <a class="btn btn-danger" href = "../logout.php">Logout</a>
-        <a class="btn btn-primary" href = "../home.php">Back to home</a>
+
+                        <?php foreach ($results as $key => $item): ?>
+                            <tr>
+                                <td><?php echo ++$key ?></td>
+                                <td><?php echo $item['id'] ?></td>
+                                <td><?php echo $item['name'] ?></td>
+                                <td><?php if ($item['status'] == 1) {
+                                        echo '<p style="color: #00A000"> Available</p>';
+                                    } else {
+                                        echo '<p style="color: #9A0000">Unavailable</p>';
+                                    } ?>
+                                <td>
+                                    <?php if ($_SESSION['user']['role'] == 1): ?>
+                                        <a class="btn btn-danger"
+                                           href="delete.php?id=<?php echo $item['id'] ?>">Delete</a><br>
+                                        <a class="btn btn-primary" href="updateForm.php?id=<?php echo $item['id'] ?>">Update</a>
+                                    <?php endif; ?>
+                                    <?php if ($_SESSION['user']['role'] == 0): ?>
+                                        <a class="btn btn-primary"
+                                           href="../borrow/borrowForm.php?id=<?php echo $item['id'] ?>">Borrow this
+                                            book</a><br>
+                                    <?php endif; ?>
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </form>
+            </div>
+            <?php if ($_SESSION['user']['role'] == 1): ?>
+                <a class="btn btn-primary" href="addRandomBook.php">Add random book</a><br><?php endif; ?>
+            <a class="btn btn-danger" href="../logout.php">Logout</a>
+            <a class="btn btn-primary" href="../home.php">Back to home</a>
+        </div>
     </div>
 </div>
+<canvas id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"></canvas>
+<script src="../js/background.js"></script>
 </body>
 </html>
