@@ -22,6 +22,20 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function resize_canvas(){
+            canvas = document.getElementById("myCanvas");
+            if (canvas.width  < window.innerWidth)
+            {
+                canvas.width  = window.innerWidth;
+            }
+
+            if (canvas.height < window.innerHeight)
+            {
+                canvas.height = window.innerHeight;
+            }
+        }
+    </script>
 </head>
 <style type="text/css">
     table.gridtable {
@@ -49,7 +63,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         background-color: #ffffff;
     }
 </style>
-<body>
+<body onscroll="resize_canvas()">
 
 
 <!------ Include the above in your HEAD tag ---------->
@@ -153,6 +167,10 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                     <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
                     <?php if ($_SESSION['user']['role'] == 1): ?>
                         <a class="btn btn-primary" href="addForm.php">ADD NEW BOOK</a><?php endif; ?>
+                    <?php if ($_SESSION['user']['role'] == 1): ?>
+                        <a class="btn btn-primary" href="addRandomBook.php">Add random book</a><?php endif; ?>
+                    <a class="btn btn-danger" href="../logout.php">Logout</a>
+                    <a class="btn btn-primary" href="../home.php">Back to home</a>
                     <table class="gridtable" border="1px">
                         <tr>
                             <th>No.</th>
@@ -190,10 +208,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                     </table>
                 </form>
             </div>
-            <?php if ($_SESSION['user']['role'] == 1): ?>
-                <a class="btn btn-primary" href="addRandomBook.php">Add random book</a><br><?php endif; ?>
-            <a class="btn btn-danger" href="../logout.php">Logout</a>
-            <a class="btn btn-primary" href="../home.php">Back to home</a>
+
         </div>
     </div>
 </div>

@@ -120,6 +120,22 @@
                     <label>Password</label>
                     <input type="password" class="form-control" name="password"/>
                 </div>
+                <div class="form-group">
+                    <label>Retype password</label>
+                    <input type="password" class="form-control" name="retype-password"/>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email"/>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" name="address"/>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" name="phone"/>
+                </div>
                 <br/>
                 <div class="form-group">
                     <button class="btn btn-primary form-control" name="register">Register</button>
