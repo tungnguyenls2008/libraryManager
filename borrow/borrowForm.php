@@ -157,9 +157,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
             <h5>This form is for making book borrow orders, proceed with caution.</h5>
             <br/>
-            <div style="width: auto;
-        margin-left: auto;
-        margin-right: auto;">
+            <div style="display: inline-block;">
                 <form method="post">
 
                     <table border="1px"

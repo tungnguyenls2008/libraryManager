@@ -14,8 +14,8 @@ if ($_SESSION['user'] == $_REQUEST['id']) {
     $sql = "INSERT INTO `member` (`mem_id`,`role`,`status`, `firstname`, `lastname`, `username`, `password`,`email`,`address`,`phone`,`ticket_history`) VALUES (NULL,0 ,0,'$randFirstName', '$randLastName', '$randUserName', '123','$randUserEmail','$randUserAddress','$randUserPhone',NULL) ";
     $query = $conn->prepare($sql);
     $query->execute();
-
-    header('Location: display.php');
+$lastInsertedID=$conn->lastInsertId();
+    header('Location: profile.php?id='.$lastInsertedID);
 }
 function generateRandomString($length = 10)
 {

@@ -9,5 +9,5 @@ $book_ids=$_GET['borrow-this'];
     $sql = "INSERT INTO `book_borrow` (`id`,`mem_id`, `book_id`) VALUES (NULL,'$user_id', '$book_ids')";
     $conn->exec($sql);
     $conn = null;
-    header('location: borrowForm.php');
+    header('location: borrowHistory.php');
 }

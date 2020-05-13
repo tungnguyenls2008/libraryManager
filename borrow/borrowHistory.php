@@ -134,7 +134,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="col-md-12 well" style="display: inline-block">
         <h3 class="text-primary">Registered Books</h3>
         <hr style="border-top:1px dotted #ccc;"/>
-        <div class="col-md-2"></div>
+
         <div>
             <h3>Welcome!</h3>
             <?php
@@ -147,7 +147,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
             <h5>This is a list of registered book borrow tickets, nothing important, really.</h5>
             <br/>
-            <div style="text-align: left;">
+            <div style="display: inline-block;">
                 <form method="post">
                     <?php if ($_SESSION['user']['role'] == 1): ?>
                     <table class="gridtable" border="1px">
@@ -190,8 +190,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 </form>
             </div>
             <?php if ($_SESSION['user']['role'] == 1): ?>
-                <a class="btn btn-primary" href="../home.php">Back to home</a><?php endif; ?>
+
         </div>
+        <a class="btn btn-primary" href="../home.php">Back to home</a><?php endif; ?>
     </div>
 </div>
 <canvas id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"></canvas>
