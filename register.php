@@ -12,7 +12,7 @@ if (isset($_POST['register'])) {
             $address = $_POST['address'];
             $phone=$_POST['phone'];
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO `member` (`mem_id`,`role`,`status`, `firstname`, `lastname`, `username`, `password`,`email`,`address`,`phone`,`ticket_history`) VALUES (NULL,0 ,0,'$firstname', '$lastname', '$username', '$password','$email','$address',$phone,NULL) ";
+            $sql = "INSERT INTO `member` (`mem_id`,`role`,`status`, `firstname`, `lastname`, `username`, `password`,`email`,`address`,`phone`,`ticket_history`) VALUES (NULL,0 ,0,'$firstname', '$lastname', '$username', '$password','$email','$address','$phone',NULL) ";
             $conn->exec($sql);
         } catch (PDOException $e) {
             echo $e->getMessage();

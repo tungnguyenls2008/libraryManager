@@ -6,11 +6,15 @@ if (isset($_POST['add'])) {
     if ($_POST['name'] != "" || $_POST['status'] != "") {
         try {
             $id = $_REQUEST['id'];
-            $sql = "UPDATE `books` SET `name`=?,`status`=? WHERE `id`=?";
+            $sql = "UPDATE `books` SET `name`=?,`status`=?, `author`=?, `description`=?, `category`=?, `cover`=? WHERE `id`=?";
             $query = $conn->prepare($sql);
             $query->bindParam(1,$_REQUEST['name']);
             $query->bindParam(2,$_REQUEST['status']);
-            $query->bindParam(3,$id);
+            $query->bindParam(3,$_REQUEST['author']);
+            $query->bindParam(4,$_REQUEST['description']);
+            $query->bindParam(5,$_REQUEST['category']);
+            $query->bindParam(6,$_REQUEST['cover']);
+            $query->bindParam(7,$id);
             $query->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();

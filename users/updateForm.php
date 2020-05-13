@@ -1,27 +1,23 @@
-<?php
-session_start();
-include '../conn.php';
-$bookID = $_REQUEST['id'];
-$sql = "SELECT * FROM books WHERE `id`='$bookID' ";
-$stmt = $conn->query($sql);
-$book = $stmt->fetch();
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>UPDATE YOUR BOOK</title>
+    <title>REGISTRATION</title>
     <link href="../css/style.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-
+<?php
+session_start();
+include '../conn.php';
+$userID = $_REQUEST['id'];
+$sql = "SELECT * FROM member WHERE `mem_id`='$userID' ";
+$stmt = $conn->query($sql);
+$user = $stmt->fetch();
+?>
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -47,11 +43,11 @@ $book = $stmt->fetch();
 
 
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white" type="button" href="index.php" data-toggle="modal"
+                    <a class="nav-link btn btn-primary text-white" type="button" href="../index.php" data-toggle="modal"
                        data-target="#myModal">Sign In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-danger text-white" type="button" href="registration.php"
+                    <a class="nav-link btn btn-danger text-white" type="button" href="../registration.php"
                        data-toggle="modal" data-target="#myModal">Register</a>
                 </li>
             </ul>
@@ -108,54 +104,50 @@ $book = $stmt->fetch();
 
 <div class="container" style="text-align: center">
     <div class="col-md-12 well" style="display: inline-block">
-        <h3 class="text-primary">UPDATE YOUR BOOK</h3>
+        <h3 class="text-primary">User profile update</h3>
         <hr style="border-top:1px dotted #ccc;"/>
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <form action="update.php?id=<?php echo $bookID ?>" method="POST">
-                <h4 class="text-success">Please fill in book's information</h4>
+            <form action="update.php" method="POST">
+                <h4 class="text-success">Update profile here...</h4>
                 <hr style="border-top:1px groovy #000;">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" name="name" value="<?php echo $book['name'] ?>"/>
+                    <label>Firstname</label>
+                    <input type="text" class="form-control" name="firstname" value="<?php echo $user['firstname'] ?>"/>
                 </div>
                 <div class="form-group">
-                    <label>Author</label>
-                    <input type="text" class="form-control" name="author" value="<?php echo $book['author'] ?>"/>
+                    <label>Lastname</label>
+                    <input type="text" class="form-control" name="lastname" value="<?php echo $user['lastname'] ?>"/>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Category</label><select name="category" class="form-control" id="exampleFormControlSelect1">
-                        <option value="<?php echo $book['category'] ?>" selected><?php echo $book['category'] ?></option>
-                        <option value="action-adventure" >Action and Adventure</option>
-                        <option value="comic-graphic">Comic and Graphic Novel</option>
-                        <option value="crime-detective">Crime and Detective</option>
-                        <option value="drama">Drama</option>
-                        <option value="fairy-tale">Fairy Tale</option>
-                        <option value="classic">Classic</option>
-                    </select>
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" value="<?php echo $user['username'] ?>"/>
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control" name="description"><?php echo $book['description'] ?></textarea>
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" value="<?php echo $user['password'] ?>"/>
                 </div>
                 <div class="form-group">
-                    <label>Status</label>
-                    <select name="status" class="form-control" id="exampleFormControlSelect1">
-                        <option value="1" <?php if ($book['status'] == 1): ?>
-                            selected
-                        <?php endif ?>>Available
-                        </option>
-                        <option value="0" <?php if ($book['status'] == 0): ?>
-                            selected
-                        <?php endif ?>>Unavailable
-                        </option>
-                    </select>
+                    <label>Retype password</label>
+                    <input type="password" class="form-control" name="retype-password" value="<?php echo $user['password'] ?>"/>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" value="<?php echo $user['email'] ?>"/>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" name="address" value="<?php echo $user['address'] ?>"/>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" name="phone" value="<?php echo $user['phone'] ?>"/>
                 </div>
                 <br/>
                 <div class="form-group">
-                    <button class="btn btn-primary form-control" name="add">UPDATE YOUR BOOK</button>
+                    <button class="btn btn-primary form-control" name="update">Update</button>
                 </div>
-                <a href="display.php">Display books list</a>
+                <a href="../index.php">Login</a>
             </form>
         </div>
     </div>

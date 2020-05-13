@@ -167,7 +167,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                             <tr>
                                 <td><?php echo ++$key ?></td>
                                 <td><?php echo $item['mem_id'] ?></td>
-                                <td><?php echo $item['username'] ?></td>
+                                <td><a href="profile.php?id=<?php echo $item['mem_id'] ?>"> <?php echo $item['username'] ?></a></td>
                                 <td><?php if ($item['role'] == 1) {
                                         echo 'Admin';
                                     } else {

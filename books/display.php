@@ -149,7 +149,6 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="col-md-12 well" style="display: inline-block">
         <h3 class="text-primary">Registered Books</h3>
         <hr style="border-top:1px dotted #ccc;"/>
-        <div class="col-md-2"></div>
         <div>
             <h3>Welcome!</h3>
             <?php
@@ -162,7 +161,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
             <h5>This is a list of registered books, nothing important, really.</h5>
             <br/>
-            <div style="text-align: left;">
+            <div style="text-align: center;">
                 <form method="post">
                     <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
                     <?php if ($_SESSION['user']['role'] == 1): ?>
@@ -171,7 +170,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                         <a class="btn btn-primary" href="addRandomBook.php">Add random book</a><?php endif; ?>
                     <a class="btn btn-danger" href="../logout.php">Logout</a>
                     <a class="btn btn-primary" href="../home.php">Back to home</a>
-                    <table class="gridtable" border="1px">
+                    <table class="gridtable" border="1px" style="margin: auto">
                         <tr>
                             <th>No.</th>
                             <th>ID</th>
@@ -184,7 +183,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                             <tr>
                                 <td><?php echo ++$key ?></td>
                                 <td><?php echo $item['id'] ?></td>
-                                <td><?php echo $item['name'] ?></td>
+                                <td><a href="profile.php?id=<?php echo $item['id'] ?>"> <?php echo $item['name'] ?></a></td>
                                 <td><?php if ($item['status'] == 1) {
                                         echo '<p style="color: #00A000"> Available</p>';
                                     } else {

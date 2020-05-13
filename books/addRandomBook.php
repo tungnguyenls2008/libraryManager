@@ -19,7 +19,7 @@ if ($randomBookCategory == 1) {
 } else if ($randomBookCategory == 6) {
     $randomBookCategory = 'classic';
 }
-$randomBookDescription = generateRandomString(30);
+$randomBookDescription = generateRandomString(50);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $sql = "INSERT INTO `books` (`id`, `name`,`author`,`category`,`cover`,`description`, `status`) VALUES (NULL,'$randomBookName','$randomBookAuthor','$randomBookCategory',NULL,'$randomBookDescription',1)";
 $conn->exec($sql);
