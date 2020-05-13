@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2020 at 05:19 PM
+-- Generation Time: May 13, 2020 at 03:01 PM
 -- Server version: 10.3.22-MariaDB-1
 -- PHP Version: 7.3.15-3
 
@@ -30,6 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `books` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `cover` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -37,39 +41,23 @@ CREATE TABLE `books` (
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `name`, `status`) VALUES
-(17, 'kkk', 0),
-(27, 'Harry Potter and the Goblet of Fire', 1),
-(28, 'treight trer ngaia strer ', 1),
-(29, 'hung gier tyo whieu ', 1),
-(30, 'hing chay zhon streight ', 1),
-(31, 'sssss', 1),
-(32, 'ádasd', 1),
-(33, 'vcvcv', 1),
-(34, 'straia ing zher yo ', 1),
-(35, 'yo bruyen thai hang ', 1),
-(36, 'nhang chang ngai giang ', 1),
-(37, 'aia ghyo nginh ngheight ', 1),
-(38, 'giieu giinh thieu huyen ', 1),
-(39, 'ang ngya ghyo thya ', 1),
-(40, 'nghuyen on giinh ung ', 1),
-(41, 'ngaia ghon nhyo brung ', 1),
-(42, 'whinh nghei shing ngung ', 1),
-(43, 'nghang teight ing strung ', 1),
-(44, 'inh brinh wher tei ', 1),
-(45, 'zheight ei nghyo on ', 1),
-(46, 'nghung thaia chung ghung ', 1),
-(47, 'height nghai thya trai ', 1),
-(48, 'uuuuu', 1),
-(49, 'nghya hay chinh tei ', 1),
-(50, 'strieu hya whyo ngieu ', 1),
-(51, 'Bí kíp làm giàu của anh Huấn hoa hẹo', 1),
-(52, 'kinh doanh online cùng anh huấn hoa hòe', 1),
-(53, 'tya bryo breight chai ', 1),
-(54, 'zhinh theight thai hai ', 1),
-(55, 'thyo shieu giya nhuyen ', 1),
-(56, 'ghya nhay breight shang ', 1),
-(57, 'fgdsgsdgf', 1);
+INSERT INTO `books` (`id`, `name`, `author`, `category`, `cover`, `description`, `status`) VALUES
+(51, 'Bí kíp làm giàu của anh Huấn hoa hẹo', 'huấn rose', 'drama', NULL, 'sách đéo gì cái loại này???', 1),
+(52, 'kinh doanh online cùng anh huấn hoa hòe', '', '', '', '', 1),
+(58, 'fhfgh', 'dfgdfg', 'crime-detective', '', 'sdfsgs', 1),
+(59, 'nhyo ter shei string ', 'straia chay zheight ', '2', NULL, 'trya bring nguyen ting nghang gher nhang trieu ngyo her zhuyen nhung hieu bryo hai ', 1),
+(60, 'ching hon brer giung ', 'strei ting hya ', '5', NULL, 'trer zhai ngieu zhai giung thai trinh sheight wheight brai nhung chung nhuyen tya nhya ', 1),
+(61, 'tray shieu ngher truyen ', 'ther nhyo ngyo ', 'comic-graphic', NULL, 'wher ghai tyo tyo nhei trung thung thya hei zhang strya ghay traia whei sheight ', 1),
+(62, '111', '111', 'comic-graphic', '', '111', 1),
+(63, 'nghon chay nghai traia ', 'chyo thing whinh ', 'drama', NULL, 'sher tung tieu whyo whuyen hung nghang chon breight giaia thang nghang traia hai gheight ', 1),
+(64, 'thai sher stron shon ', 'brung giung thuyen ', 'action-adventure', NULL, 'chay trung tyo chuyen thing hya giieu shang whyo gheight tai thay ghyo ngang whieu ', 1),
+(65, 'strya whieu chei strya ', 'trinh whyo thinh ', 'comic-graphic', NULL, 'zhieu whya giya chei hinh nhon zhya whang whang brei zhaia nher straia zhei trya ', 1),
+(66, 'nghinh hung nging ghyo ', 'thya trya giang ', 'classic', NULL, 'brer strung zhaia shinh strer chung tang bron hay giinh zhang tya nginh chei trai ', 1),
+(67, 'shon hing thon brer ', 'shya whya whon ', 'classic', NULL, 'whing bring thya thay strer thai trieu gher cher nghaia ghang nhon ghon tya tray ', 1),
+(68, 'cheight shay nhon tung ', 'tei giung struyen ', 'crime-detective', NULL, 'zhai zhei nhing stryo brer whya tang nghing shya shya nger nhya nhay cheight zhya ', 1),
+(69, 'nher ghuyen ghai ghay ', 'ghay ghing whon ', 'crime-detective', NULL, 'zhay zher giai giaia ton strai shei whaia ngya nghai trinh ngher hung stron brya ', 1),
+(70, 'whon whei giya ghieu ', 'thuyen tray hieu ', 'drama', NULL, 'hinh bron giuyen ghuyen gher haia stray shing ting bryo trya ghang giing nghei ther ', 1),
+(71, 'struyen haia gier nhya ', 'stron giei tang ', 'classic', NULL, 'hung bring nher ting traia chay nghei huyen tay ngei trung taia giei nhay thuyen ', 1);
 
 -- --------------------------------------------------------
 
@@ -115,31 +103,38 @@ CREATE TABLE `member` (
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `password` varchar(12) NOT NULL
+  `password` varchar(12) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `ticket_history` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`mem_id`, `role`, `status`, `firstname`, `lastname`, `username`, `password`) VALUES
-(147, 1, 0, 'overlord', '', 'admin', 'admin'),
-(152, 0, 1, 'haia_thuyen_', 'chyo_nhing_', 'ngang_giei_', '123'),
-(153, 0, 1, 'nger_giay_', 'ghai_zhyo_', 'sher_chon_', '123'),
-(154, 0, 1, 'nghieu_nghinh_', 'ghuyen_nghing_', 'strei_ching_', '123'),
-(155, 0, 1, 'gion_bron_', 'shuyen_nhing_', 'tring_ghon_', '123'),
-(156, 0, 1, 'giai_streight_', 'whang_ghon_', 'giyo_truyen_', '123'),
-(157, 0, 0, 'nhinh_whuyen_', 'brinh_trinh_', 'ieu_ton_', '123'),
-(158, 0, 0, 'ei_brang_', 'bryo_ghieu_', 'uyen_treight_', '123'),
-(159, 0, 0, 'nghei_zhang_', 'nghing_ei_', 'nhinh_shuyen_', '123'),
-(160, 0, 1, 'sher_giieu_', 'zhay_whon_', 'treight_brya_', '123'),
-(161, 0, 0, 'chieu_hya_', 'ngang_ghay_', 'brei_whai_', '123'),
-(163, 0, 0, 'tron_ghya_', 'inh_brung_', 'shon_zhinh_', '123'),
-(165, 0, 0, 'ngay_brer_', 'zhei_hinh_', 'height_giinh_', '123'),
-(166, 0, 0, 'chaia_strinh_', 'ghon_chinh_', 'ching_giya_', '123'),
-(167, 1, 0, 'a', 'a', 'a', 'a'),
-(168, 0, 1, 'height_wher_', 'thinh_zhuyen_', 'giei_strieu_', '123'),
-(169, 0, 0, 'tung', 'nguyen', 'tung', '123');
+INSERT INTO `member` (`mem_id`, `role`, `status`, `firstname`, `lastname`, `username`, `password`, `email`, `address`, `phone`, `ticket_history`) VALUES
+(147, 1, 0, 'overlord', '', 'admin', 'admin', '', '', '', ''),
+(152, 0, 1, 'haia_thuyen_', 'chyo_nhing_', 'ngang_giei_', '123', '', '', '', ''),
+(153, 0, 1, 'nger_giay_', 'ghai_zhyo_', 'sher_chon_', '123', '', '', '', ''),
+(154, 0, 1, 'nghieu_nghinh_', 'ghuyen_nghing_', 'strei_ching_', '123', '', '', '', ''),
+(155, 0, 1, 'gion_bron_', 'shuyen_nhing_', 'tring_ghon_', '123', '', '', '', ''),
+(156, 0, 1, 'giai_streight_', 'whang_ghon_', 'giyo_truyen_', '123', '', '', '', ''),
+(157, 0, 0, 'nhinh_whuyen_', 'brinh_trinh_', 'ieu_ton_', '123', '', '', '', ''),
+(158, 0, 0, 'ei_brang_', 'bryo_ghieu_', 'uyen_treight_', '123', '', '', '', ''),
+(159, 0, 0, 'nghei_zhang_', 'nghing_ei_', 'nhinh_shuyen_', '123', '', '', '', ''),
+(160, 0, 1, 'sher_giieu_', 'zhay_whon_', 'treight_brya_', '123', '', '', '', ''),
+(161, 0, 0, 'chieu_hya_', 'ngang_ghay_', 'brei_whai_', '123', '', '', '', ''),
+(163, 0, 0, 'tron_ghya_', 'inh_brung_', 'shon_zhinh_', '123', '', '', '', ''),
+(165, 0, 0, 'ngay_brer_', 'zhei_hinh_', 'height_giinh_', '123', '', '', '', ''),
+(166, 0, 0, 'chaia_strinh_', 'ghon_chinh_', 'ching_giya_', '123', '', '', '', ''),
+(167, 1, 0, 'a', 'a', 'a', 'a', '', '', '', ''),
+(168, 0, 1, 'height_wher_', 'thinh_zhuyen_', 'giei_strieu_', '123', '', '', '', ''),
+(169, 0, 0, 'tung', 'nguyen', 'tung', '123', '', '', '', ''),
+(170, 0, 0, 'firstname', 'lastname', 'username', 'password', 'email', 'address', '123', NULL),
+(171, 0, 0, 'xxx', 'xxx', 'xxx', 'xxx', 'xxx@gmail.com', 'xxx', 'xxx', NULL),
+(172, 0, 0, 'shyo_zhung_', 'chaia_brieu_', 'thung_huyen_', '123', 'hinh_huyen_nher_@gmail.com', 'trei_nher_shon_giei_cheight_', '0985120096', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,7 +219,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `book_borrow`
@@ -242,7 +237,7 @@ ALTER TABLE `borrow`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT for table `ticket`
