@@ -108,7 +108,7 @@ $user = $stmt->fetch();
         <hr style="border-top:1px dotted #ccc;"/>
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <form action="update.php" method="POST">
+            <form action="update.php?id=<?php echo $user['mem_id'] ?>" method="POST">
                 <h4 class="text-success">Update profile here...</h4>
                 <hr style="border-top:1px groovy #000;">
                 <div class="form-group">
@@ -143,11 +143,23 @@ $user = $stmt->fetch();
                     <label>Phone</label>
                     <input type="text" class="form-control" name="phone" value="<?php echo $user['phone'] ?>"/>
                 </div>
+                <?php if ($_SESSION['user']['role']==1): ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select>
+                            <option value="0">Active</option>
+                            <option value="1">Blocked</option>
+                        </select>
+                    </div>
+                </div><?php endif; ?>
                 <br/>
                 <div class="form-group">
                     <button class="btn btn-primary form-control" name="update">Update</button>
                 </div>
-                <a href="../index.php">Login</a>
+
             </form>
         </div>
     </div>

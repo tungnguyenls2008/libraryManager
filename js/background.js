@@ -59,7 +59,7 @@ function createMultipleCircle(){
 function animateTheCircles() {
     requestAnimationFrame(animateTheCircles);
     ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
-    for (let i = 0; i <30 ; i++) {
+    for (let i = 0; i <50 ; i++) {
         circles[i].update();
     }
 }

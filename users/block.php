@@ -10,6 +10,6 @@ if ($_SESSION['user']['role'] == 1){
         $query = $conn->prepare($sql);
         $query->execute();
 
-        header('Location: display.php');
+        header('Location: profile.php?id='.$id);
     }}
 else echo "you're in a wrong place, buddy";

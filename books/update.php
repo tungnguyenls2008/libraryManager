@@ -25,7 +25,7 @@ if (isset($_POST['add'])) {
     } else {
         echo "
 				<script>alert('Please fill up the required field!')</script>
-				<script>window.location = 'addForm.php'</script>
+				<script>window.location = 'updateForm.php'</script>
 			";
     }
 }}

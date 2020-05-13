@@ -145,14 +145,16 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
             ?>
             <div style="text-align: center;">
                 <h4><?php echo 'hi there ' . $fetch['firstname'] . " " . $fetch['lastname'] ?></h4></div>
+            <?php if ($_SESSION['user']['status']==0):{ ?>
             <h5>This is a list of registered user, nothing important, really.</h5>
             <div><?php if ($_SESSION['user']['role'] == 1): ?>
+                    <a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
                     <a class="btn btn-primary" href="addRandomUser.php">Add random user</a> <?php endif; ?>
                 <a class="btn btn-danger" href="../logout.php">Logout</a>
                 <a class="btn btn-primary" href="../home.php">Back to home</a></div>
             <div style="display: inline-block;">
                 <form method="post">
-                    <br><a class="btn btn-secondary" href="searchResult.php">SEARCH</a>
+                    <br>
                     <table class="gridtable" border="1px">
                         <tr>
                             <th>No.</th>
@@ -203,6 +205,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
+<?php }else : echo "You're blocked from reaching this information, please contact site admin for details.";endif; ?>
 <canvas id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"></canvas>
 <script src="../js/background.js"></script>
 </body>
