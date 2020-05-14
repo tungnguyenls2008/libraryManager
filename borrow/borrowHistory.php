@@ -153,6 +153,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                     <table class="gridtable" border="1px">
                         <th>No.</th>
                         <th>Ticket ID</th>
+                        <th>Ticket time</th>
                         <th>Member ID</th>
                         <th>Username</th>
                         <th>User status</th>
@@ -165,6 +166,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                             <tr>
                                 <td><?php echo ++$key ?></td>
                                 <td><?php echo $item['id'] ?></td>
+                                <td><?php echo $item['borrow_time'] ?></td>
                                 <td><?php echo $item['user_id'] ?></td>
                                 <td><?php echo $item['username'] ?></td>
                                 <td><?php if ($item['member_status'] == 0) {
